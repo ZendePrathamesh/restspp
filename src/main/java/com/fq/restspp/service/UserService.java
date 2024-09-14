@@ -1,6 +1,7 @@
 package com.fq.restspp.service;
 
 import com.fq.restspp.enitity.User;
+import com.fq.restspp.exception.UserNotFound;
 import com.fq.restspp.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,13 +37,20 @@ public class UserService {
     public User updateUser(User user) {
         log.info("update user");
 
-        User addedUser = userRepository.save(user);
+        User updatedUser = null;
+
+        Optional<User> existUser = userRepository.findById(user.getId());
+        if(existUser.isPresent()) {
+            updatedUser = userRepository.save(user);
+        } else {
+            throw new UserNotFound("User with id = " + user.getId() +" is not found");
+        }
 
         log.info("update user completed");
-        return addedUser;
+        return updatedUser;
     }
 
-    public String deleteUser(Long id) {
+    public String  deleteUser(Long id) {
         log.info("delete user");
 
         userRepository.deleteById(id);
