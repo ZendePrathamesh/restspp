@@ -2,6 +2,8 @@ package com.fq.restspp.controller;
 
 import com.fq.restspp.enitity.User;
 import com.fq.restspp.service.UserService;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Positive;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,7 +19,7 @@ public class UserController {
     UserService userService;
 
     @GetMapping("/{id}")
-    public ResponseEntity<User> getUser(@PathVariable Long id) {
+    public ResponseEntity<User> getUser(@PathVariable @Positive Long id) {
         log.info("get user");
 
         User newUser = userService.getUser(id);
@@ -27,7 +29,7 @@ public class UserController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<User> addUser(@RequestBody User user) {
+    public ResponseEntity<User> addUser(@RequestBody @Valid User user) {
         log.info("adding user");
 
         User newUser = userService.add(user);
@@ -38,7 +40,7 @@ public class UserController {
 
 
     @PutMapping("/")
-    public ResponseEntity<User> updateUser(@RequestBody User user) {
+    public ResponseEntity<User> updateUser(@RequestBody @Valid  User user) {
         log.info("update user");
 
         User newUser = userService.updateUser(user);
@@ -48,7 +50,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteUser(@PathVariable Long id) {
+    public ResponseEntity<String> deleteUser(@PathVariable @Positive Long id) {
         log.info("delete user");
 
         String message = userService.deleteUser(id);
