@@ -34,6 +34,7 @@ public class UserController {
 
         User newUser = userService.add(user);
 
+
         log.info("adding user completed");
         return new ResponseEntity<>(newUser, HttpStatus.CREATED);
     }

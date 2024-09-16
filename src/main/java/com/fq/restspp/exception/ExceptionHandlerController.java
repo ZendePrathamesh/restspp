@@ -31,4 +31,9 @@ public class ExceptionHandlerController {
         ApplicationError applicationError = new ApplicationError("BAD_REQUEST", userNotFound.getMessage());
         return new ResponseEntity<>(applicationError ,HttpStatus.BAD_REQUEST);
     }
+    @ExceptionHandler(AddressNotFound.class)
+    public ResponseEntity<ApplicationError> handleAddressNotFound(AddressNotFound ex) {
+        ApplicationError applicationError = new ApplicationError("BAD_REQUEST", ex.getMessage());
+        return new ResponseEntity<>(applicationError, HttpStatus.BAD_REQUEST);
+    }
 }
