@@ -27,12 +27,13 @@ public class ProductController {
 
   @Autowired
   private ProductService productService;
-  
+
 
   @PostMapping
   public ResponseEntity<Product> createProduct(@Valid @RequestBody Product product) {
     return new ResponseEntity<>(productService.createProduct(product), HttpStatus.CREATED);
   }
+
 
   @GetMapping("/{id}")
   public ResponseEntity<Product> getProductById(@PathVariable Long id) {
